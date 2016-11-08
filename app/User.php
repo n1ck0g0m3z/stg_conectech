@@ -1,0 +1,97 @@
+<?php
+
+namespace App;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'username', 'email', 'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+    
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
+    
+    public function articles()
+    {
+        return $this->hasMany('App\Article');
+    }
+    
+    public function article_comments()
+    {
+        return $this->hasMany('App\ArticleComment');
+    }
+    
+    public function tweets()
+    {
+        return $this->hasMany('App\Tweet');
+    }
+    
+    public function tweet_comments()
+    {
+        return $this->hasMany('App\TweetComment');
+    }
+    
+    public function followers()
+    {
+        return $this->belongsToMany(
+            self::class, 
+            'follows',
+            'followee_id',
+            'follower_id'
+        );
+    }
+    
+    public function followees()
+    {
+        return $this->belongsToMany(
+            self::class,
+            'follows',
+            'follower_id',
+            'followee_id'
+        );
+    }
+    
+    public function from_user()
+    {
+        return $this->belongsToMany(
+            self::class,
+            'messages',
+            'from_id',
+            'to_id',
+            'message',
+            'img',
+            'thumbnail'
+        );
+    }
+    
+    public function to_user()
+    {
+        return $this->belongsToMany(
+            self::class,
+            'messages',
+            'to_id',
+            'from_id',
+            'message',
+            'img',
+            'thumbnail'
+        );
+    }
+}
