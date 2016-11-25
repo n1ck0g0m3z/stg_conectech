@@ -1,7 +1,7 @@
 .panel > .panel-heading {
     background-image: none;
     background-color: #2E2E2E;
-    color: #8D8D8D;
+    color: white;
 }
 
 .panel-default {
@@ -19,17 +19,20 @@
 
 #gradient{
     z-index: -1;
-    background: linear-gradient(146deg, #040d41, #2771ae, #040d41, #338c75);
+    background: linear-gradient(160deg, #2771ae, #040d41);
+    /*background: linear-gradient(145deg, #304d7f, #2b6378, #236553, #2b6378, #2a426c, #2b6378, #236553);*/
+    /*background: linear-gradient(145deg, #172b4e, #3f6489, #38778e, #3b6b7d, #3f6489);*/
+    
     height: 100%;
     width: 100%;
   	display: block;
   	position: fixed;
   	top: 0;
-    background-size: 800% 800%;
+    background-size: 100% 100%;
     
-    -webkit-animation: AnimationName 50s ease infinite;
+    /*-webkit-animation: AnimationName 50s ease infinite;
     -moz-animation: AnimationName 50s ease infinite;
-    animation: AnimationName 50s ease infinite;
+    animation: AnimationName 50s ease infinite;*/
 }
 
 @-webkit-keyframes AnimationName {
@@ -46,4 +49,13 @@
     0%{background-position:5% 0%}
     50%{background-position:96% 100%}
     100%{background-position:5% 0%}
+}
+
+/*profileEdit*/
+.vresize {
+  resize: vertical; 
+}
+
+.white_p {
+    color:white;
 }

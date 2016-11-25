@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
-.word-wrap{
-    word-wrap:break-word;
+.post_content .col-xs-8{
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+.overflow-wrap{
+    overflow-wrap: break-word;
 }

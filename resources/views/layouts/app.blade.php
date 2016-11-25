@@ -38,7 +38,7 @@
                 <ul class="nav navbar-nav">
                     <li {{{ (Request::is('home') ? 'class=active' : '') }}}><a href="{{ url('/home') }}">プロフィール</a></li>
                     <li {{{ (Request::is('timeline') ? 'class=active' : '') }}}><a href="{{ url('/timeline') }}">TL</a></li>
-                    <li {{{ (Request::is('index') ? 'class=active' : '') }}}><a href="{{ url('/blog') }}">ブログ</a></li>
+                    <li {{{ (Request::is('index') ? 'class=active' : '') }}}><a href="{{ url('/article/show/{id}') }}">ブログ</a></li>
                 </ul>
        
                 <!-- Right Side Of Navbar -->
@@ -58,7 +58,7 @@
                         </ul>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->user_name }} <span class="caret"></span>
+                                {{ Auth::user()->username }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">

@@ -16,7 +16,12 @@
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h2><ruby>ゴメス<rp>(</rp><rt>Gomez</rt><rp>)</rp> クリス<rp>(</rp><rt>Chris</rt><rp>)</rp></ruby></h2>
+                                    <h2>
+                                        <ruby>
+                                            {{ $profile->last_name }}<rp>(</rp><rt>{{ $profile->last_kana }}</rt><rp>)</rp>
+                                            {{ $profile->first_name }}<rp>(</rp><rt>{{ $profile->first_kana}}</rt><rp>)</rp>
+                                        </ruby>
+                                    </h2>
                                 </div>
                                 <div class="col-md-6">
                                     <button class="btn btn-default">フォロー</button>

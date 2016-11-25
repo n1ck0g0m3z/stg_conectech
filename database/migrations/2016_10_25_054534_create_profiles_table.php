@@ -15,10 +15,15 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('permission_id')->unsigned();
+            $table->integer('permission');
+            $table->string('first_kana');
             $table->string('first_name');
+            $table->binary('img');
+            $table->binary('thumbnail');
             $table->string('middle_name');
+            $table->string('middle_kana');
             $table->string('last_name');
+            $table->string('last_kana');
             $table->string('major');
             $table->integer('sex');
             $table->string('born_place');
@@ -33,11 +38,6 @@ class CreateProfilesTable extends Migration
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
-                  ->onDelete('cascade');
-                  
-            $table->foreign('permission_id')
-                  ->references('id')
-                  ->on('permissions')
                   ->onDelete('cascade');
         });
     }
