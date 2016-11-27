@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
-
 use Illuminate\Support\Facades\Redirect;
 
 use App\User;
+
+use App\Article;
+
+use App\ArticleComment;
+
+use App\Profile;
 
 use URL;
 
@@ -18,7 +22,8 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        
+        $articles = Article::orderBy('created_at', 'desc')->get();
+        return view('articles.allArticle', compact('articles'));
     }
 
 
@@ -40,13 +45,6 @@ class ArticleController extends Controller
             "articles"  => $articles,
         ]);
     }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
 
     public function update(Request $request, $id)
     {
@@ -71,18 +69,30 @@ class ArticleController extends Controller
     public function showDetail($id)
     {
         $article = Article::findOrFail($id);
+        $comments = ArticleComment::where('article_id', $id)->orderBy('created_at', 'desc')->get();
         $user_id = $article->user_id;
-        $user = User::findOrFail($user_id);
+        $profile = Profile::findOrFail($user_id);
         return view('articles.articleDetail', [
-            "user" => $user,
+            "profile" => $profile,
             "article"  => $article,
+            "comments" => $comments,
         ]);
     }
     
-    /*public function commentStore(Request $request, $id)
+    public function commentStore(Request $request)
     {
-        $article_comments = new ArticleComment($request->all());
-        \Auth::User()->articles()->article_comments()->save($article_comments);
+        $comment = new ArticleComment($request->all());
+        \Auth::User()->article_comments()->save($comment);
+        $id = $request->article_id;
+        
         return Redirect::to(URL::to('/article/detail/' . $id));
-    }*/
+    }
+    
+    public function commentDestroy($id)
+    {
+        $comment = ArticleComment::findOrFail($id);
+        $comment->delete();
+        
+        return Redirect::to(URL::to('/article/detail/' . $comment->article_id));
+    }
 }

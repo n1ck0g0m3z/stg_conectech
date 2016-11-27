@@ -17,8 +17,11 @@
 <body id="app-layout">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
-            <div class="navbar-header col-sm-5 col-md-6 col-lg-7">
-
+            @if (!Auth::guest())
+            <div class="navbar-header col-sm-6 col-md-7 col-lg-8">
+            @else
+            <div class="navbar-header col-sm-9 col-md-9 col-lg-10">
+            @endif
                 <!-- Collapsed Hamburger -->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
@@ -28,19 +31,26 @@
                 </button>
                 
                 <a class="navbar-brand" style="padding:0" href="{{ url('/timeline') }}"><img src="{{URL::asset('/img/logo.png')}}"></a>
-                <a class="navbar-brand" href="{{ url('/') }}">
+                @if (Auth::guest())
+                <a class="navbar-brand font_si" href="{{ url('/') }}">
+                @else
+                <a class="navbar-brand font_si" href="{{ url('/timeline') }}">
+                @endif
                     ConecTECH  
                 </a>
             </div>
-
-            <div class="collapse navbar-collapse col-sm-7 col-md-6 col-lg-5" id="app-navbar-collapse"　id="myNavbar">
+            
+            @if (!Auth::guest())
+            <div class="collapse navbar-collapse col-sm-6 col-md-5 col-lg-4" id="app-navbar-collapse"　id="myNavbar">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li {{{ (Request::is('home') ? 'class=active' : '') }}}><a href="{{ url('/home') }}">プロフィール</a></li>
+                    <li {{{ (Request::is('profile') ? 'class=active' : '') }}}><a href="{{ url('/profile') }}">プロフィール</a></li>
                     <li {{{ (Request::is('timeline') ? 'class=active' : '') }}}><a href="{{ url('/timeline') }}">TL</a></li>
-                    <li {{{ (Request::is('index') ? 'class=active' : '') }}}><a href="{{ url('/article/show/{id}') }}">ブログ</a></li>
+                    <li {{{ (Request::is('blog') ? 'class=active' : '') }}}><a href="{{ url('/blog') }}">ブログ</a></li>
                 </ul>
-       
+            @else
+                <div class="collapse navbar-collapse col-sm-3 col-md-3 col-lg-2" id="app-navbar-collapse"　id="myNavbar">
+            @endif
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
@@ -62,6 +72,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/profile/edit') }}">Edit</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>

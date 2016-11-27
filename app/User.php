@@ -94,4 +94,22 @@ class User extends Authenticatable
             'thumbnail'
         );
     }
+    
+    public function isAdminManager()
+    {
+        if(\Auth::User()->profile->permission == 0){
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public function isTeacher()
+    {
+        if(\Auth::User()->profile->permission == 1){
+            return true;
+        }
+        
+        return false;
+    }
 }

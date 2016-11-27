@@ -2,6 +2,7 @@
     background-image: none;
     background-color: #2E2E2E;
     color: white;
+    /*border:transparent;*/
 }
 
 .panel-default {
@@ -56,6 +57,47 @@
   resize: vertical; 
 }
 
+.font_si{
+    font-size: 150%;
+    font-weight: bold;
+}
 .white_p {
     color:white;
+    font-size: 135%;
+    font-weight: bold;
+}
+
+.head_content{
+    color:#e22f2f;
+    font-size: 145%;
+    font-weight: bold;
+    line-height: 1.6;
+    width: auto;
+}
+
+.box_size{
+    height:auto; 
+    width:405px;
+}
+
+.panel-back{
+    background-image:url("../img/techcsd.png");
+}
+
+.panel-trans{
+    background:rgba(255,255,255,0.7);
+    padding: 10px;
+}
+
+.panel-trans > h2{
+    margin-top: 0;
+}
+
+.overflow-wrap{
+    overflow-wrap: break-word;
+}
+
+.blog {
+    background-color: transparent;
+    border:transparent;
 }

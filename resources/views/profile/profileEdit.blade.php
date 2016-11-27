@@ -7,28 +7,43 @@
             <div class="panel panel-default">
                 <div class="panel-heading">プロフィール編集</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/profile') }}">
-                        {{ csrf_field() }}
+                <div class="panel-body panel-back">
+                    {!! Form::open(array('url' => isset($profile) ? url('/profile/'.Auth::user()->id) : url('/profile'), 'files'=>true, 'class'=>'form-horizontal')) !!}
+                    <!--<form class="form-horizontal" role="form" method="POST" action="{{ isset($profile) ? url('/profile/'.Auth::user()->id) : url('/profile') }}">-->
+                        {{ isset($profile) ? Form::hidden('_method', 'PUT') : '' }}
                         
                         <div class="form-group">
-                            <label for="first_name" class="col-md-4 control-label">username</label>
+                            {!! Form::label('username', null, ['class' => 'col-md-4 control-label']) !!}
+                            
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="username" name="username" value="{{ Auth::user()->username }}" readonly>
+                                {!! Form::text('username', Auth::user()->username, ['class' => 'form-control',  'readonly']) !!}
+                                
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="first_name" class="col-md-4 control-label">email</label>
+                            {!! Form::label('email', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}" readonly>
+                                {!! Form::text('email', Auth::user()->email, ['class' => 'form-control',  'readonly']) !!}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
+                            {!! Form::label('img', null, ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::file('img', null, ['class' => 'form-control']) !!}
+                                @if ($errors->has('img'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('img') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         
                         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                            <label for="first_name" class="col-md-4 control-label">first_name</label>
+                            {!! Form::label('first_name', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="first_name" value="{{ old('first_name') }}">
+                                {!! Form::text('first_name', isset($profile) ? $profile->first_name : old('first_name'), ['class' => 'form-control', 'placeholder' => 'first_name']) !!}
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('first_name') }}</strong>
@@ -37,10 +52,22 @@
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('middle_name') ? ' has-error' : '' }}">
-                            <label for="" class="col-md-4 control-label">middle_name</label>
+                        <div class="form-group{{ $errors->has('first_kana') ? ' has-error' : '' }}">
+                            {!! Form::label('first_kana', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="middle_name" value="{{ old('middle_name') }}">
+                                {!! Form::text('first_kana', isset($profile) ? $profile->first_kana : old('first_kana'), ['class' => 'form-control', 'placeholder' => 'first_kana']) !!}
+                                @if ($errors->has('first_kana'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('first_kana') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('middle_name') ? ' has-error' : '' }}">
+                            {!! Form::label('middle_name', null, ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('middle_name', isset($profile) ? $profile->middle_name : old('middle_name'), ['class' => 'form-control', 'placeholder' => 'middle_name']) !!}
                                 @if ($errors->has('middle_name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('middle_name') }}</strong>
@@ -49,10 +76,22 @@
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">last_name</label>
+                        <div class="form-group{{ $errors->has('middle_kana') ? ' has-error' : '' }}">
+                            {!! Form::label('middle_kana', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="last_name" value="{{ old('last_name') }}">
+                                {!! Form::text('middle_kana', isset($profile) ? $profile->middle_kana : old('middle_kana'), ['class' => 'form-control', 'placeholder' => 'middle_kana']) !!}
+                                @if ($errors->has('middle_kana'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('middle_kana') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            {!! Form::label('last_name', null, ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('last_name', isset($profile) ? $profile->last_name : old('last_name'), ['class' => 'form-control', 'placeholder' => 'last_name']) !!}
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('last_name') }}</strong>
@@ -61,13 +100,25 @@
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="birth" class="col-md-4 control-label">birth</label>
+                        <div class="form-group{{ $errors->has('last_kana') ? ' has-error' : '' }}">
+                            {!! Form::label('last_kana', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input type="date" class="form-control" id="birth" name="birth" value="{{ old('last_name') }}">
-                                @if ($errors->has('date'))
+                                {!! Form::text('last_kana', isset($profile) ? $profile->last_kana : old('last_kana'), ['class' => 'form-control', 'placeholder' => 'last_kana']) !!}
+                                @if ($errors->has('last_kana'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('date') }}</strong>
+                                        <strong>{{ $errors->first('last_kana') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('birth') ? ' has-error' : '' }}">
+                            {!! Form::label('birth', null, ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::date('birth', isset($profile) ? $profile->birth : old('birth'), ['class' => 'form-control', 'placeholder' => 'birth']) !!}
+                                @if ($errors->has('birth'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('birth') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -87,9 +138,9 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('major') ? ' has-error' : '' }}">
-                            <label for="major" class="col-md-4 control-label">major</label>
+                            {!! Form::label('major', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="major" name="major" placeholder="major" value="{{ old('major') }}">
+                                {!! Form::text('major', isset($profile) ? $profile->major : old('major'), ['class' => 'form-control', 'placeholder' => 'major']) !!}
                                 @if ($errors->has('major'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('major') }}</strong>
@@ -99,9 +150,9 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('born_place') ? ' has-error' : '' }}">
-                            <label for="born_place" class="col-md-4 control-label">born_place</label>
+                            {!! Form::label('born_place', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="born_place" name="born_place" placeholder="born_place" value="{{ old('born_place') }}">
+                                {!! Form::text('born_place', isset($profile) ? $profile->born_place : old('born_place'), ['class' => 'form-control', 'placeholder' => 'born_place']) !!}
                                 @if ($errors->has('born_place'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('born_place') }}</strong>
@@ -159,14 +210,11 @@
                         </div>
                         
                         <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    {{Form::close()}}
                 </div>
             </div> <!-- .panel -->
 
         </div>
     </div>
 </div>
-<!-- JavaScripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 @endsection

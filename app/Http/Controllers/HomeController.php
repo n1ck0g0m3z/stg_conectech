@@ -30,6 +30,7 @@ class HomeController extends Controller
     
     public function timeline()
     {
-        return view('timeline');
+        $profile = \Auth::user()->profile;
+        return view('timeline',compact('profile'));
     }
 }

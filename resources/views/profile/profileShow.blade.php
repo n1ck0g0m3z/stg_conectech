@@ -7,10 +7,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">プロフィール</div>
 
-                  <div class="panel-body">
+                  <div class="panel-body panel-back">
                     <div class="row">
                         <div class="col-md-4">
-                          <img src="{{URL::asset('/img/gomez.png')}}" alt="profile Pic" height="200" width="200">
+                            
+                            <img src="data:image/jpeg;base64,{{base64_encode($profile['img'])}}" alt="profile Pic" height="200" width="200">
+                        
                         </div>
                       
                         <div class="col-md-8">
@@ -51,8 +53,7 @@
                                 </tr>
                             </table>
                         </div><!-- .table-wrap -->
-
-
+                        
                     </div>
                 </div>
             </div> <!-- .panel -->
@@ -60,7 +61,4 @@
         </div>
     </div>
 </div>
-<!-- JavaScripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 @endsection

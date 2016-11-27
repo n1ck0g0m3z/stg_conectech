@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<link href="{{{asset('/assets/css/article.css')}}}" rel="stylesheet">
+<link rel="stylesheet" href="{{ URL::asset('css/style.css') }}"> 
 
 @section('content')
 
@@ -14,7 +14,7 @@
                 {{-- entry_header --}}
                 <header class="panel-heading">
                     
-                    <h1 class="entry_title">{{ $article->title }}</h1>
+                    <h1 class="entry_title overflow-wrap">{{ $article->title }}</h1>
                 
                     <div class="date">
                         <div class="entry_date">
@@ -55,45 +55,77 @@
             </div>
             {{-- end paging --}}
             
-            {{-- comment --
+            {{-- comment --}}
             <div class="comments_list">
                 
-                <h4>Comment List</h4>
-                <a href="#comment_create">コメントする</a>
+                <h4 class="white_p">Comment List</h4>
+                
+                {{-- addCommentArea --}}
+                <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#addCommentModal">Comment</button>
+                    <div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-labelledby="addCommentModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="addCommentModalLabel">Add Comment</h4>
+                                </div>
+                            
+                                <div class="modal-body">
+                                    <form class="form-horizontal" role="form" method="POST" action="{{ action('ArticleController@commentStore') }}">
+                                        {{ csrf_field() }}
+                                        
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label for="comment" class="col-md-4 control-label">Comment</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <textarea class="form-control" name="comment" cols="50" rows="10" id="comment"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input id="article_id" name="article_id" type="hidden" value="{{ $article->id }}">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <input type="submit" class="btn btn-primary form-control" value="Save">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end addCommentArea --}}
                 
                 <div class="comment">
                     <ul class="list-group">
                         @foreach($comments as $comment)
                         <li class="list-group-item">
-                            <p class="comment_body">{{ $comment->body }}</p>
+                            <p class="comment_body overflow-wrap">{!! nl2br(e($comment->comment)) !!}</p>
                             <ul class="list-inline">
                                 <li>投稿日：</li>
                                 <li>{{ $comment->created_at }}</li>
                             </ul>
+                            
+                            @if((Auth::user()->id == $article->user_id) || (Auth::user()->id == $comment->user_id))
+                            <ul class="list-inline">
+                                <li>
+                                    <form action="{{ action('ArticleController@commentDestroy', $comment->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('delete') }}
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                    </form>
+                                </li>
+                            </ul>
+                            @endif
                         </li>
                         @endforeach
                     </ul>
                 </div>
-                
-                <div id="comment_create">
-                    <form action="{{ action('ArticleController@commentStore') }}" method="POST">
-                    {{ csrf_field() }}
-                    
-                    <div class="form-group col-xs-12">
-                        <label for="body" class"controll-label">Comment</label>
-                        
-                        <div class="post_content">
-                            <textarea id="body" name="body" class="form-controll col-xs-8" rows="5"></textarea>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group col-xs-12">
-                        <button type="submit" class="btn btn-info" >Post</botton>
-                    </div>
-                </form>
-                </div>
             </div>
-            -- end comment --}}
+            {{-- end comment --}}
         </div>
     </div>
 </div>
