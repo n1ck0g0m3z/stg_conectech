@@ -28,6 +28,7 @@
                             </div>
                         </div>
                         
+                        @if(!isset($profile))
                         <div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
                             {!! Form::label('img', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
@@ -39,6 +40,7 @@
                                 @endif
                             </div>
                         </div>
+                        @endif
                         
                         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
                             {!! Form::label('first_name', null, ['class' => 'col-md-4 control-label']) !!}
@@ -115,7 +117,7 @@
                         <div class="form-group{{ $errors->has('birth') ? ' has-error' : '' }}">
                             {!! Form::label('birth', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                {!! Form::date('birth', isset($profile) ? $profile->birth : old('birth'), ['class' => 'form-control', 'placeholder' => 'birth']) !!}
+                                {!! Form::date('birth', isset($profile) ? $profile->birth->format('Y-m-d') : old('birth'), ['class' => 'form-control', 'placeholder' => 'birth']) !!}
                                 @if ($errors->has('birth'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('birth') }}</strong>
@@ -127,11 +129,12 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-push-4">
                                 <label class="form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sex" id="sex0" value="0" checked>
+                                    {{ Form::radio('sex', 0, (isset($profile) ? $profile->sex : old('sex') == 0), ['class' => 'form-check-input']) }}
                                     Man
                                 </label>
+                                
                                 <label class="form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sex" id="sex1" value="1">
+                                    {{ Form::radio('sex', 1, (isset($profile) ? $profile->sex : old('sex') == 1), ['class' => 'form-check-input']) }}
                                     Woman
                                 </label>
                             </div>

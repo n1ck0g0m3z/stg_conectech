@@ -101,3 +101,11 @@
     background-color: transparent;
     border:transparent;
 }
+
+.noleft {
+    padding-left: 0;
+}
+
+.noright {
+    padding-right: 0;
+}

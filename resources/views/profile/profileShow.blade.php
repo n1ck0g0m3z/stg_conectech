@@ -5,7 +5,11 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">プロフィール</div>
+                <div class="panel-heading">プロフィール<a href="{{ url('profile/edit') }}" class="pull-right">
+                    @if (\Auth::User()->id == $profile->user->id)
+                    <span>編集</span>
+                    @endif
+                </a></div>
 
                   <div class="panel-body panel-back">
                     <div class="row">
@@ -42,15 +46,34 @@
                         <div class="col-sm-12 table-wrap" style="margin-top:30px;">
                             <table class="table">
                                 <tr>
+                                    <th>専攻</th>
+                                    <td>{{ $profile->major }}</td>
+                                </tr>
+                                <tr>
+                                    <th>出身</th>
+                                    <td>{{ $profile->born_place }}</td>
+                                </tr>
+                                <tr>
                                     <th>誕生日</th>
-                                    <td>2016/07/12</td>
+                                    <td>{{ $profile->birth->format('Y年m月d日') }}</td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">About Me</th>
+                                    <th>自己紹介</th>
+                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->about_me) ,ENT_QUOTES) ) !!}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"></td>
+                                    <th>趣味</th>
+                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->hobby) ,ENT_QUOTES) ) !!}</td>
                                 </tr>
+                                <tr>
+                                    <th>技術</th>
+                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->technic) ,ENT_QUOTES) ) !!}</td>
+                                </tr>
+                                <tr>
+                                    <th>得意分野</th>
+                                    <td>{!! str_replace('&lt;br /&gt;', '<br>', e( nl2br($profile->specialty) ,ENT_QUOTES) ) !!}</td>
+                                </tr>
+
                             </table>
                         </div><!-- .table-wrap -->
                         

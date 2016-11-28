@@ -52,7 +52,7 @@ class ProfileController extends Controller
     {
         //
         $this->validate($request, [
-            'img' => '',
+            'img' => 'required',
             'first_name' => 'required|max:255',
             'first_kana' => 'required|max:255',
             'middle_name' => 'max:255',
@@ -137,7 +137,6 @@ class ProfileController extends Controller
     {
         //
         $this->validate($request, [
-            'img' => 'required',
             'first_name' => 'required|max:255',
             'first_kana' => 'required|max:255',
             'middle_name' => 'max:255',
@@ -150,17 +149,16 @@ class ProfileController extends Controller
             'born_place' => 'required|max:255',
         ]);
         
-        
-        
+        /*
         $file = Input::file('img');
         $img = Image::make($file);
         Response::make($img->encode('jpg'));
+        */
         
         $profile = \Auth::user()->profile;
         $profile->update([
             'user_id' => \Auth::user()->id,
             'permission' => 2,
-            'img' => $img,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,

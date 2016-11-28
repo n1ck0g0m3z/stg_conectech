@@ -15,6 +15,8 @@ class Profile extends Model
         'img', 'thumbnail',
     ];
     
+    protected $dates = ['birth'];
+    
     public function user()
     {
         return $this->belongsTo('App\User');
