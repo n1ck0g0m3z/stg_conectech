@@ -5,8 +5,9 @@
     <div class="container">
 
       <div class="rows">
-
         <div class="col-md-3 col-sm-4 col-xs-12 panel-back">
+          <div class="col-xs-1"></div>
+          <div class="col-xs-10">
           <div style="margin-top:10px;">
             <ul class="list-group list-unstyled text-center">
               <li class="list-group-item">
@@ -16,6 +17,7 @@
               <li class="list-group-item">フォロワー：10</li>
             </ul>
           </div><!--  -->
+          </div>
         </div>
 
         <div class="col-md-6 col-sm-8 col-xs-12 panel-back">
