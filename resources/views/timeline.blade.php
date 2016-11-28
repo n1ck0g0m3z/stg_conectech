@@ -21,13 +21,13 @@
         <div class="col-md-6 col-sm-8 col-xs-12 panel-back">
           <div class="post_list panel-trans post_form" style="padding-bottom:0;">
             <div class="container noleft noright">
-                <div class="col-lg-1 col-md-1 col-sm-2 noleft noright">
-                  <img class="col-xs-3 col-sm-10 col-md-10 col-lg-9 img-responsive noright" src="data:image/jpeg;base64,{{ base64_encode($profile['img']) }}">
-                  <p class="col-lg-12 col-md-12 col-sm-12 noright noleft text-center">ゴメス クリス</p>
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 noleft noright">
+                  <img class="col-xs-12 col-sm-10 col-md-10 col-lg-9 img-responsive noright" src="data:image/jpeg;base64,{{ base64_encode($profile['img']) }}">
+                  <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noright noleft text-center resp">ゴメス クリス</p>
                 </div>
-                <div class="col-lg-1 col-md-1 col-sm-2 noleft noright">
-                  <img class="col-xs-3 col-sm-10 col-md-10 col-lg-9 img-responsive noright" src="data:image/jpeg;base64,{{ base64_encode($profile['img']) }}">
-                  <p class="col-lg-12 col-md-12 col-sm-12 noright noleft text-center">ゴメス クリス</p>
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 noleft noright">
+                  <img class="col-xs-12 col-sm-10 col-md-10 col-lg-9 img-responsive noright" src="data:image/jpeg;base64,{{ base64_encode($profile['img']) }}">
+                  <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noright noleft text-center resp">ゴメス クリス</p>
                 </div>
             </div>
             <p class="text-right">もっと見る</p>
