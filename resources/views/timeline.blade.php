@@ -6,8 +6,8 @@
 
       <div class="rows">
         <div class="col-md-3 col-sm-4 col-xs-12 panel-back">
-          <div class="col-xs-1"></div>
-          <div class="col-xs-10">
+          <div class="col-xs-1 col-md-0 col-sm-0"></div>
+          <div class="col-xs-10 col-md-12 col-sm-12">
           <div style="margin-top:10px;">
             <ul class="list-group list-unstyled text-center">
               <li class="list-group-item">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="col-md-6 col-sm-8 col-xs-12 panel-back">
-          <div class="post_list panel-trans post_form" style="padding-bottom:0;">
+          <div class="post_list panel-trans post_form" style="padding-bottom:0;margin-top:10px;">
             <div class="container noleft noright">
                 <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 noleft noright">
                   <img class="col-xs-12 col-sm-10 col-md-10 col-lg-9 img-responsive noright" src="data:image/jpeg;base64,{{ base64_encode($profile['img']) }}">
@@ -34,8 +34,7 @@
             </div>
             <p class="text-right">もっと見る</p>
           </div><!--  -->
-          <br>
-          <div class="panel-trans post_form" style="margin-top:10px;margin-bottom:0px;padding-bottom:5px">
+          <div class="panel-trans post_form" style="margin-bottom:0px;padding-bottom:5px;margin-top:20px;">
             <form>
               <div class="form-group">
                 <label for="post_tweet">投稿欄</label>
