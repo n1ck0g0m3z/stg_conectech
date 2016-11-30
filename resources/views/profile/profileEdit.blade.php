@@ -28,9 +28,8 @@
                             </div>
                         </div>
                         
-                        @if(!isset($profile))
                         <div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
-                            {!! Form::label('img', null, ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('img[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
                                 {!! Form::file('img', null, ['class' => 'form-control']) !!}
                                 @if ($errors->has('img'))
@@ -40,10 +39,9 @@
                                 @endif
                             </div>
                         </div>
-                        @endif
                         
                         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                            {!! Form::label('first_name', null, ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('first_name[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
                                 {!! Form::text('first_name', isset($profile) ? $profile->first_name : old('first_name'), ['class' => 'form-control', 'placeholder' => 'first_name']) !!}
                                 @if ($errors->has('first_name'))
@@ -91,7 +89,7 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            {!! Form::label('last_name', null, ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('last_name[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
                                 {!! Form::text('last_name', isset($profile) ? $profile->last_name : old('last_name'), ['class' => 'form-control', 'placeholder' => 'last_name']) !!}
                                 @if ($errors->has('last_name'))
@@ -115,9 +113,9 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('birth') ? ' has-error' : '' }}">
-                            {!! Form::label('birth', null, ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('birth[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                {!! Form::date('birth', isset($profile) ? $profile->birth->format('Y-m-d') : old('birth'), ['class' => 'form-control', 'placeholder' => 'birth']) !!}
+                                {!! Form::date('birth', old('birth') != null ? old('birth') : isset($profile) ? $profile->birth->format('Y-m-d') : '1990-01-01', ['class' => 'form-control', 'placeholder' => 'birth']) !!}
                                 @if ($errors->has('birth'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('birth') }}</strong>
@@ -141,7 +139,7 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('major') ? ' has-error' : '' }}">
-                            {!! Form::label('major', null, ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('major[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
                                 {!! Form::text('major', isset($profile) ? $profile->major : old('major'), ['class' => 'form-control', 'placeholder' => 'major']) !!}
                                 @if ($errors->has('major'))
@@ -153,7 +151,7 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('born_place') ? ' has-error' : '' }}">
-                            {!! Form::label('born_place', null, ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('born_place[必須]', null, ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
                                 {!! Form::text('born_place', isset($profile) ? $profile->born_place : old('born_place'), ['class' => 'form-control', 'placeholder' => 'born_place']) !!}
                                 @if ($errors->has('born_place'))
@@ -167,7 +165,7 @@
                         <div class="form-group{{ $errors->has('about_me') ? ' has-error' : '' }}">
                             <label for="about_me" class="col-md-4  control-label">about_me</label>
                             <div class="col-md-6">
-                                <textarea class="form-control vresize" id="about_me" name="about_me" placeholder="about_me" value="{{ old('about_me') }}" cols="6" rows="3"></textarea>
+                                <textarea class="form-control vresize" id="about_me" name="about_me" placeholder="about_me" cols="6" rows="3">{{ isset($profile) ? $profile->about_me : old('about_me') }}</textarea>
                             </div>
                             @if ($errors->has('about_me'))
                                 <span class="help-block">
@@ -179,7 +177,7 @@
                         <div class="form-group{{ $errors->has('hobby') ? ' has-error' : '' }}">
                             <label for="hobby" class="col-md-4  control-label">hobby</label>
                             <div class="col-md-6">
-                                <textarea class="form-control vresize" id="hobby" name="hobby" placeholder="hobby" value="{{ old('hobby') }}" cols="6" rows="3"></textarea>
+                                <textarea class="form-control vresize" id="hobby" name="hobby" placeholder="hobby" cols="6" rows="3">{{ isset($profile) ? $profile->hobby : old('hobby') }}</textarea>
                             </div>
                             @if ($errors->has('hobby'))
                                 <span class="help-block">
@@ -191,7 +189,7 @@
                         <div class="form-group{{ $errors->has('technic') ? ' has-error' : '' }}">
                             <label for="technic" class="col-md-4  control-label">technic</label>
                             <div class="col-md-6">
-                                <textarea class="form-control vresize" id="technic" name="technic" placeholder="technic" value="{{ old('technic') }}" cols="6" rows="3"></textarea>
+                                <textarea class="form-control vresize" id="technic" name="technic" placeholder="technic" cols="6" rows="3">{{ isset($profile) ? $profile->technic : old('technic') }}</textarea>
                             </div>
                             @if ($errors->has('technic'))
                                 <span class="help-block">
@@ -203,7 +201,7 @@
                         <div class="form-group{{ $errors->has('specialty') ? ' has-error' : '' }}">
                             <label for="specialty" class="col-md-4  control-label">specialty</label>
                             <div class="col-md-6">
-                                <textarea class="form-control vresize" id="specialty" name="specialty" placeholder="specialty" value="{{ old('specialty') }}" cols="6" rows="3"></textarea>
+                                <textarea class="form-control vresize" id="specialty" name="specialty" placeholder="specialty" cols="6" rows="3">{{ isset($profile) ? $profile->specialty : old('specialty') }}</textarea>
                             </div>
                             @if ($errors->has('specialty'))
                                 <span class="help-block">

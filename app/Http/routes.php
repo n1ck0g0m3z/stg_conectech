@@ -22,8 +22,10 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('profile/edit','ProfileController@edit');
+Route::get('profile/create','ProfileController@create');
+Route::get('profile/{username}','ProfileController@show');
 Route::resource('profile', 'ProfileController');
-
+Route::post('/tweet','TweetController@store');
 Route::get('blog','ArticleController@index');
 Route::get('/article/{id}', 'ArticleController@showList');
 Route::get('/article/detail/{id}', 'ArticleController@showDetail');

@@ -13,13 +13,10 @@
 
                   <div class="panel-body panel-back">
                     <div class="row">
-                        <div class="col-md-4">
-                            
-                            <img src="data:image/jpeg;base64,{{base64_encode($profile['img'])}}" alt="profile Pic" height="200" width="200">
-                        
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <img src="data:image/jpeg;base64,{{base64_encode($profile['img'])}}" alt="profile Pic" class=" img-responsive">
                         </div>
-                      
-                        <div class="col-md-8">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
                             <div class="row">
                                 <div class="col-md-6">
                                     <h2>
@@ -30,20 +27,25 @@
                                     </h2>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-default">フォロー</button>
+                                    @if (\Auth::User()->id == $profile->user->id)
+                                        <button class="btn btn-default">フォロー</button>
+                                    @endif
                                 </div>
                             </div>
 
                             <hr/>
 
                             <div class="row">
-                                <div class="col-md-6"><a href="#">フォロー：15</a></div>
-                                <div class="col-md-6"><a href="#">フォロワー：10</a></div>
+                                <div class="col-md-6"><a href="#">フォロー：2</a></div>
+                                <div class="col-md-6"><a href="#">フォロワー：2</a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><a href="{{ url("/article/".$profile->user_id) }}">ブログ</a></div>
                             </div>
 
                         </div>
                       
-                        <div class="col-sm-12 table-wrap" style="margin-top:30px;">
+                        <div class="col-xs-12 col-sm-12 table_wrap" style="margin-top:30px;">
                             <table class="table">
                                 <tr>
                                     <th>専攻</th>
@@ -80,7 +82,27 @@
                     </div>
                 </div>
             </div> <!-- .panel -->
-
+            @if (isset($tweets[0]))
+            <div class="post_list panel-trans post_form" style="padding-bottom:0;">
+            <ul class="list-group list-unstyled">
+              @foreach ($tweets as $tweet)
+              <li class="list-group-item">
+                <div class="row">
+                  <a href="{{ url('profile/' . $tweet->user->username) }}">
+                  <img class="col-xs-3 col-sm-3 col-md-2 col-lg-2 img-responsive" src="data:image/jpeg;base64,{{ base64_encode($tweet->user->profile['img']) }}">
+                  </a>
+                  <div class="col-xs-9 col-sm-9 col-md-10 col-lg-10 noleft">
+                    <a href="{{ url('profile/' . $tweet->user->username) }}">
+                    <p>{{ $tweet->user->profile->last_name . ' ' .$tweet->user->profile->first_name }}</p>
+                    </a>
+                    <p>{{ $tweet->tweet }}</p>
+                </div>
+              </li>
+              <br>
+              @endforeach
+              </ul>
+          </div><!--  -->
+          @endif
         </div>
     </div>
 </div>

@@ -13,6 +13,7 @@ use Image;
 
 use App\User;
 use App\Profile;
+use App\Tweet;
 
 
 
@@ -27,8 +28,9 @@ class ProfileController extends Controller
     {
         $user = \Auth::User();
         $profile = $user->profile;
+        $tweets = Tweet::where('user_id',$user->id)->get();
         
-        return view('profile.profileShow', ['profile' => $profile]);
+        return view('profile.profileShow', ['profile' => $profile, 'tweets' => $tweets]);
     }
 
     /**
@@ -54,27 +56,28 @@ class ProfileController extends Controller
         $this->validate($request, [
             'img' => 'required',
             'first_name' => 'required|max:255',
-            'first_kana' => 'required|max:255',
+            'first_kana' => 'max:255',
             'middle_name' => 'max:255',
             'middle_kana' => 'max:255',
             'last_name' => 'required|max:255',
-            'last_kana' => 'required|max:255',
-            'birth' => 'date',
-            'sex' => 'required',
+            'last_kana' => 'max:255',
+            'birth' => 'required|date',
             'major' => 'required|max:255',
             'born_place' => 'required|max:255',
         ]);
         
-        /*
-        $file = Input::file('img');
+        $file = $request->img;
         $img = Image::make($file);
-        Response::make($img->encode('jpeg'));
-        */
+        $requimg = $img->encode('jpeg');
+        $img->resize(null, 100, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
         
         $request->user()->profile()->create([
             'user_id' => \Auth::user()->id,
             'permission' => 2,
-            'img' => $request->img,
+            'img' => $requimg,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
@@ -102,13 +105,14 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($username)
     {
         //
-        $user = User::find($id);
+        $user = User::where('username',$username)->first();
         $profile = $user->profile;
+        $tweets = Tweet::where('user_id',$user->id)->get();
         
-        return view('profile.profileShow', ['profile' => $profile]);
+        return view('profile.profileShow', ['profile' => $profile, 'tweets' => $tweets]);
     }
 
     /**
@@ -138,27 +142,32 @@ class ProfileController extends Controller
         //
         $this->validate($request, [
             'first_name' => 'required|max:255',
-            'first_kana' => 'required|max:255',
+            'first_kana' => 'max:255',
             'middle_name' => 'max:255',
             'middle_kana' => 'max:255',
             'last_name' => 'required|max:255',
-            'last_kana' => 'required|max:255',
-            'birth' => 'date',
-            'sex' => 'required',
+            'last_kana' => 'max:255',
+            'birth' => 'required|date',
             'major' => 'required|max:255',
             'born_place' => 'required|max:255',
         ]);
         
-        /*
-        $file = Input::file('img');
-        $img = Image::make($file);
-        Response::make($img->encode('jpg'));
-        */
+        
+        $file = $request->img;
+        if($file != null){
+            $img = Image::make($file);
+            $img->resize(300, 300);
+            $requimg = $img->encode('jpeg');
+        }else{
+            $requimg = \Auth::User()->profile->img;
+        }
+        
         
         $profile = \Auth::user()->profile;
         $profile->update([
             'user_id' => \Auth::user()->id,
             'permission' => 2,
+            'img' => $requimg,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,

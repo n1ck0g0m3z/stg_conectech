@@ -25,6 +25,12 @@ class ArticleController extends Controller
         $articles = Article::orderBy('created_at', 'desc')->get();
         return view('articles.allArticle', compact('articles'));
     }
+    
+    public function timeline()
+    {
+        $profile = \Auth::user()->profile;
+        return view('articlesList',compact('profile'));
+    }
 
 
     public function store(Request $request)
@@ -38,10 +44,12 @@ class ArticleController extends Controller
     public function showList($id)
     {
         $user = User::find($id);
+        $profile = User::find($id)->profile;
         $articles = $user->articles()->orderBy('created_at', 'desc')->get();
         //dd($user);
         return view('articles.articlesList', [
             "user" => $user,
+            "profile" => $profile,
             "articles"  => $articles,
         ]);
     }
@@ -69,11 +77,12 @@ class ArticleController extends Controller
     public function showDetail($id)
     {
         $article = Article::findOrFail($id);
+        $poster_id = $article->user_id;
+        $poster_profile = User::find($poster_id)->profile;
         $comments = ArticleComment::where('article_id', $id)->orderBy('created_at', 'desc')->get();
-        $user_id = $article->user_id;
-        $profile = Profile::findOrFail($user_id);
+        
         return view('articles.articleDetail', [
-            "profile" => $profile,
+            "poster_profile" => $poster_profile,
             "article"  => $article,
             "comments" => $comments,
         ]);

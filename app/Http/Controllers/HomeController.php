@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\Article;
+use App\Tweet;
+
 class HomeController extends Controller
 {
     /**
@@ -29,8 +32,13 @@ class HomeController extends Controller
     }
     
     public function timeline()
-    {
+    {   
         $profile = \Auth::user()->profile;
-        return view('timeline',compact('profile'));
+        
+        $tweets = Tweet::all();
+        
+        $articles = Article::orderBy('updated_at','desc')->paginate(5);
+        
+        return view('timeline',compact('profile','articles','tweets'));
     }
 }
