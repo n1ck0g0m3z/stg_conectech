@@ -16,8 +16,8 @@ class CreateTweetsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->text('tweet');
-            $table->binary('img');
-            $table->binary('thumbnail');
+            $table->longbinary('img');
+            $table->longbinary('thumbnail');
             $table->dateTime('updated_at');
             $table->dateTime('created_at');
             

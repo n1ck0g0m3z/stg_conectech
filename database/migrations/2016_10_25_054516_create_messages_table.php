@@ -17,8 +17,8 @@ class CreateMessagesTable extends Migration
             $table->integer('from_id')->unsigned();
             $table->integer('to_id')->unsigned();
             $table->text('message');
-            $table->binary('img');
-            $table->binary('thumbnail');
+            $table->longbinary('img');
+            $table->longbinary('thumbnail');
             $table->dateTime('updated_at');
             $table->dateTime('created_at');
             

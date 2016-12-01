@@ -17,8 +17,8 @@ class CreateArticlesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('title');
             $table->text('content');
-            $table->binary('img');
-            $table->binary('thumbnail');
+            $table->longbinary('img');
+            $table->longbinary('thumbnail');
             $table->dateTime('updated_at');
             $table->dateTime('created_at');
             

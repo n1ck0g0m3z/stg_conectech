@@ -15,11 +15,10 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('permission');
             $table->string('first_kana');
             $table->string('first_name');
-            $table->binary('img');
-            $table->binary('thumbnail');
+            $table->longbinary('img');
+            $table->longbinary('thumbnail');
             $table->string('middle_name');
             $table->string('middle_kana');
             $table->string('last_name');
