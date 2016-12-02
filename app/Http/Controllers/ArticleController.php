@@ -8,7 +8,7 @@ use App\User;
 
 use App\Article;
 
-use App\ArticleComment;
+use App\Comment;
 
 use App\Profile;
 
@@ -79,7 +79,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $poster_id = $article->user_id;
         $poster_profile = User::find($poster_id)->profile;
-        $comments = ArticleComment::where('article_id', $id)->orderBy('created_at', 'desc')->get();
+        $comments = Comment::where('commentable_id', $id)->orderBy('created_at', 'desc')->get();
         
         return view('articles.articleDetail', [
             "poster_profile" => $poster_profile,
@@ -90,16 +90,17 @@ class ArticleController extends Controller
     
     public function commentStore(Request $request)
     {
-        $comment = new ArticleComment($request->all());
-        \Auth::User()->article_comments()->save($comment);
-        $id = $request->article_id;
+        $comment = new Comment($request->all());
+        $article = Article::findOrFail(1)->first();
+        $article->comments()->save($comment);
+        $id = 1;
         
         return Redirect::to(URL::to('/article/detail/' . $id));
     }
     
     public function commentDestroy($id)
     {
-        $comment = ArticleComment::findOrFail($id);
+        $comment = Comment::findOrFail($id);
         $comment->delete();
         
         return Redirect::to(URL::to('/article/detail/' . $comment->article_id));

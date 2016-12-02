@@ -215,7 +215,7 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <input id="article_id" name="article_id" type="hidden" value="{{ $article->id }}">
+                                            <input id="user_id" name="user_id" type="hidden" value="{{ \Auth::User()->id }}">
                                         </div>
                                         
                                         <div class="form-group">

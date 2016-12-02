@@ -23,8 +23,8 @@ class Article extends Model
         return $this->belongsTo('App\User');
     }
     
-    public function article_comments()
+    public function comments()
     {
-        return $this->hasMany('App\ArticleComment');
+        return $this->morphMany('App\Comment','commentable');
     }
 }

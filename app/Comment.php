@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ArticleComment extends Model
+class Comment extends Model
 {
     //
     protected $fillable = [
-        'comment','article_id'
+        'comment','user_id',
     ];
 
     /**
@@ -19,9 +19,9 @@ class ArticleComment extends Model
     protected $hidden = [
     ];
     
-    public function article()
+    public function commentable()
     {
-        return $this->belongsTo('App\Article');
+        return $this->morphTo();
     }
     
     public function user()
