@@ -91,9 +91,10 @@ class ArticleController extends Controller
     public function commentStore(Request $request)
     {
         $comment = new Comment($request->all());
-        $article = Article::findOrFail(1)->first();
+        $article = Article::findOrFail($request->commentable_id);
+        \Auth::User()->comments()->save($comment);
         $article->comments()->save($comment);
-        $id = 1;
+        $id = $request->commentable_id;
         
         return Redirect::to(URL::to('/article/detail/' . $id));
     }

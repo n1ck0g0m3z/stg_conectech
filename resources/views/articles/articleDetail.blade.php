@@ -215,7 +215,7 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <input id="user_id" name="user_id" type="hidden" value="{{ \Auth::User()->id }}">
+                                            <input id="commentable_id" name="commentable_id" type="hidden" value="{{ $article->id }}">
                                         </div>
                                         
                                         <div class="form-group">
@@ -237,7 +237,7 @@
                             <a href="{{ url('profile/' . $comment->user->username) }}">
                             <ul class="list-inline">
                                     <li><img src="data:image/jpeg;base64,{{base64_encode($comment->user->profile->img)}}" alt="profile Pic" class="img-responsive" width="20" height="20"></li>
-                                    <li>{{ $comment->user->profile->last_name }}{{ $comment->user->profile->first_name }}</li>
+                                    <li>{{ $comment->user->profile->last_name }}{{ $comment->user->profile->first_name }}</li>-->
                             </ul>
                             </a>
                             {{-- <p>投稿者：{{ $commenter_profile->last_name }}{{ $commenter_profile->middle_name }}{{ $commenter_profile->first_name }}</p> --}}
