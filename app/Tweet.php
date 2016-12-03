@@ -16,8 +16,8 @@ class Tweet extends Model
         return $this->belongsTo('App\User');
     }
     
-    public function tweet_comments()
+    public function comments()
     {
-        return $this->hasMany('App\TweetComment');
+        return $this->morphMany('App\Comment','commentable');
     }
 }
